@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI For Everyone — Learn AI at School</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --purple: #5B4FD4;
+    --purple-light: #EAE8FD;
+    --purple-mid: #8E85E8;
+    --teal: #1A9E78;
+    --teal-light: #DFF5ED;
+    --coral: #E05A30;
+    --coral-light: #FAEAE3;
+    --amber: #D4830F;
+    --amber-light: #FDF0D8;
+    --navy: #1A1733;
+    --navy-mid: #2E2A55;
+    --text: #1A1733;
+    --text-mid: #4A4775;
+    --text-muted: #8885A8;
+    --bg: #F7F6FF;
+    --white: #FFFFFF;
+    --border: rgba(91,79,212,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(247,246,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.15rem;
+    color: var(--purple); letter-spacing: -0.02em;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-logo span { font-size: 1.3rem; }
+  .nav-links { display: flex; align-items: center; gap: 4px; }
+  .nav-links a {
+    font-size: 0.85rem; font-weight: 500; color: var(--text-mid);
+    text-decoration: none; padding: 6px 12px; border-radius: 8px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .nav-links a:hover { background: var(--purple-light); color: var(--purple); }
+  .nav-cta {
+    background: var(--purple) !important; color: white !important;
+    border-radius: 999px !important; padding: 7px 16px !important;
+    font-weight: 600 !important;
+  }
+  .nav-cta:hover { background: var(--navy-mid) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 900px; margin: 0 auto;
+    padding: 5rem 2rem 3rem;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--purple-light); color: var(--purple);
+    border: 1px solid rgba(91,79,212,0.2);
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 999px; margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 800; line-height: 1.1;
+    color: var(--navy); letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em { color: var(--purple); font-style: normal; }
+  .hero p {
+    font-size: 1.1rem; color: var(--text-mid); max-width: 560px; margin: 0 auto 2rem;
+    line-height: 1.7;
+  }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--purple); color: white;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600;
+    padding: 12px 24px; border-radius: 999px; border: none; cursor: pointer;
+    text-decoration: none; transition: transform 0.15s, background 0.15s;
+  }
+  .btn-primary:hover { background: var(--navy-mid); transform: translateY(-1px); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: white; color: var(--purple);
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600;
+    padding: 12px 24px; border-radius: 999px; border: 1.5px solid rgba(91,79,212,0.3);
+    cursor: pointer; text-decoration: none; transition: transform 0.15s, border-color 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--purple); transform: translateY(-1px); }
+
+  /* ── LV-ASSIST BANNER ── */
+  .lv-banner {
+    max-width: 860px; margin: 0 auto 4rem; padding: 0 2rem;
+  }
+  .lv-card {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+    border-radius: 20px; padding: 2rem 2.5rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .lv-card-left { display: flex; align-items: center; gap: 1rem; }
+  .lv-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
+    border: 1px solid rgba(255,255,255,0.15); flex-shrink: 0;
+  }
+  .lv-text h3 {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem;
+    color: white; margin-bottom: 2px;
+  }
+  .lv-text p { font-size: 0.85rem; color: rgba(255,255,255,0.65); }
+  .btn-lv {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: white; color: var(--navy);
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 700;
+    padding: 10px 22px; border-radius: 999px; text-decoration: none;
+    transition: transform 0.15s; white-space: nowrap; flex-shrink: 0;
+  }
+  .btn-lv:hover { transform: translateY(-1px); }
+
+  /* ── SECTION WRAPPER ── */
+  .section { max-width: 900px; margin: 0 auto; padding: 0 2rem 5rem; }
+  .section-header { margin-bottom: 2rem; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--purple); margin-bottom: 0.5rem;
+  }
+  .section-header h2 {
+    font-family: 'Syne', sans-serif; font-size: 1.75rem; font-weight: 800;
+    color: var(--navy); letter-spacing: -0.02em;
+  }
+
+  /* ── LESSONS ── */
+  .lesson-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
+  .lesson-card {
+    background: white; border-radius: 16px;
+    border: 1px solid var(--border);
+    padding: 1.5rem; cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    text-align: left;
+  }
+  .lesson-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(91,79,212,0.12);
+    border-color: rgba(91,79,212,0.3);
+  }
+  .lesson-emoji { font-size: 2rem; margin-bottom: 0.75rem; display: block; }
+  .lesson-card h3 {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+    color: var(--navy); margin-bottom: 0.35rem;
+  }
+  .lesson-card p { font-size: 0.83rem; color: var(--text-muted); line-height: 1.5; }
+  .lesson-arrow { float: right; color: var(--purple-mid); font-size: 1rem; margin-top: 2px; }
+
+  /* ── LESSON PANEL ── */
+  .lesson-panel {
+    display: none; background: white; border-radius: 20px;
+    border: 1px solid var(--border); padding: 2rem;
+  }
+  .lesson-panel.open { display: block; }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.85rem; font-weight: 600; color: var(--purple);
+    background: var(--purple-light); border: none; border-radius: 999px;
+    padding: 7px 14px; cursor: pointer; margin-bottom: 1.5rem; text-decoration: none;
+    transition: background 0.15s;
+  }
+  .back-btn:hover { background: #d6d2f9; }
+  .lesson-panel h2 {
+    font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800;
+    color: var(--navy); margin-bottom: 1rem;
+  }
+  .lesson-body p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.75; margin-bottom: 0.85rem; }
+  .fun-fact {
+    background: var(--purple-light); border-left: 3px solid var(--purple);
+    padding: 0.875rem 1.25rem; border-radius: 0 10px 10px 0;
+    font-size: 0.88rem; color: var(--navy-mid); margin: 1.25rem 0; line-height: 1.6;
+  }
+
+  /* ── SLIDESHOW ── */
+  .slide-wrapper {
+    background: white; border-radius: 20px; border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .slide-stage {
+    background: linear-gradient(135deg, var(--purple-light) 0%, var(--teal-light) 100%);
+    padding: 3.5rem 2.5rem; text-align: center; min-height: 300px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .slide { display: none; }
+  .slide.active { display: block; }
+  .slide-emoji { font-size: 3.5rem; margin-bottom: 1rem; }
+  .slide h2 {
+    font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800;
+    color: var(--navy); margin-bottom: 0.75rem; letter-spacing: -0.02em;
+  }
+  .slide p { font-size: 0.95rem; color: var(--text-mid); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+  .slide-footer {
+    padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--border);
+  }
+  .slide-count { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+  .slide-controls { display: flex; gap: 8px; align-items: center; }
+  .slide-btn {
+    background: white; border: 1.5px solid rgba(91,79,212,0.25);
+    color: var(--purple); font-weight: 600; font-size: 0.85rem;
+    padding: 7px 18px; border-radius: 999px; cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .slide-btn:hover { background: var(--purple); color: white; border-color: var(--purple); }
+  .slide-dots { display: flex; gap: 6px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(91,79,212,0.2); cursor: pointer; transition: background 0.15s; }
+  .dot.active { background: var(--purple); }
+
+  /* ── ACTIVITIES ── */
+  .activity-list { display: flex; flex-direction: column; gap: 14px; }
+  .activity-card {
+    background: white; border-radius: 16px; border: 1px solid var(--border);
+    padding: 1.5rem; display: flex; gap: 1.25rem; align-items: flex-start;
+  }
+  .activity-icon {
+    width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+  }
+  .icon-purple { background: var(--purple-light); }
+  .icon-teal { background: var(--teal-light); }
+  .icon-coral { background: var(--coral-light); }
+  .icon-amber { background: var(--amber-light); }
+  .activity-body { flex: 1; }
+  .activity-body h3 {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.97rem;
+    color: var(--navy); margin-bottom: 0.3rem;
+  }
+  .activity-body p { font-size: 0.85rem; color: var(--text-mid); margin-bottom: 0.75rem; line-height: 1.55; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 0.75rem; }
+  .tag {
+    font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+    letter-spacing: 0.02em;
+  }
+  .tag-purple { background: var(--purple-light); color: var(--purple); }
+  .tag-teal { background: var(--teal-light); color: var(--teal); }
+  .tag-coral { background: var(--coral-light); color: var(--coral); }
+  .tag-amber { background: var(--amber-light); color: var(--amber); }
+  .link-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.82rem; font-weight: 600; color: var(--purple);
+    background: var(--purple-light); border: none; border-radius: 999px;
+    padding: 6px 14px; cursor: pointer; text-decoration: none;
+    transition: background 0.15s;
+  }
+  .link-btn:hover { background: #d6d2f9; }
+
+  /* ── QUIZ ── */
+  .quiz-wrap {
+    background: white; border-radius: 20px; border: 1px solid var(--border); padding: 2rem;
+  }
+  .quiz-progress-bar {
+    height: 4px; background: var(--purple-light); border-radius: 999px; margin-bottom: 1.75rem; overflow: hidden;
+  }
+  .quiz-fill { height: 100%; background: var(--purple); border-radius: 999px; transition: width 0.3s; }
+  .quiz-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; margin-bottom: 0.5rem; }
+  .quiz-q { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 1.25rem; }
+  .quiz-opts { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.25rem; }
+  .quiz-opt {
+    padding: 12px 16px; border-radius: 12px;
+    border: 1.5px solid var(--border);
+    background: white; color: var(--text); font-size: 0.9rem;
+    cursor: pointer; text-align: left; font-family: 'DM Sans', sans-serif;
+    transition: border-color 0.12s, background 0.12s;
+  }
+  .quiz-opt:hover { border-color: var(--purple-mid); background: var(--purple-light); }
+  .quiz-opt.correct { border-color: var(--teal); background: var(--teal-light); color: #085041; }
+  .quiz-opt.wrong { border-color: var(--coral); background: var(--coral-light); color: #993C1D; }
+  .quiz-feedback {
+    display: none; padding: 0.875rem 1.1rem; border-radius: 10px;
+    font-size: 0.875rem; line-height: 1.5; margin-bottom: 1rem;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct { background: var(--teal-light); color: #0F6E56; }
+  .quiz-feedback.wrong { background: var(--coral-light); color: #993C1D; }
+  .quiz-next {
+    display: none; background: var(--purple); color: white;
+    border: none; border-radius: 999px; padding: 10px 22px;
+    font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: background 0.15s;
+  }
+  .quiz-next.show { display: inline-block; }
+  .quiz-next:hover { background: var(--navy-mid); }
+  .quiz-score {
+    text-align: center; padding: 2rem 1rem;
+  }
+  .quiz-score .score-num {
+    font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800;
+    color: var(--purple); margin-bottom: 0.5rem;
+  }
+  .quiz-score p { font-size: 1rem; color: var(--text-mid); margin-bottom: 1.5rem; }
+  .quiz-retry {
+    background: var(--purple); color: white; border: none; border-radius: 999px;
+    padding: 10px 24px; font-size: 0.9rem; font-weight: 600; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ── TEACHERS ── */
+  .teacher-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .teacher-card {
+    background: white; border-radius: 16px; border: 1px solid var(--border); padding: 1.5rem;
+  }
+  .teacher-card h3 {
+    font-family: 'Syne', sans-serif; font-size: 0.97rem; font-weight: 700;
+    color: var(--navy); margin-bottom: 0.5rem;
+  }
+  .teacher-card p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.6; margin-bottom: 0.75rem; }
+  .discussion-list { list-style: none; padding: 0; }
+  .discussion-list li {
+    font-size: 0.85rem; color: var(--text-mid); padding: 7px 0;
+    border-bottom: 1px solid var(--border); line-height: 1.5;
+  }
+  .discussion-list li:last-child { border-bottom: none; }
+  .discussion-list li::before { content: "→ "; color: var(--purple); font-weight: 700; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy); color: rgba(255,255,255,0.55);
+    text-align: center; padding: 2rem; font-size: 0.82rem;
+    margin-top: 2rem;
+  }
+  footer a { color: var(--purple-mid); text-decoration: none; }
+  footer .footer-logo {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
+    color: white; margin-bottom: 0.5rem; display: block;
+  }
+
+  /* ── PAGE SECTIONS ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .page.active > * { animation: fadeUp 0.3s ease both; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#" onclick="showPage('home')"><span>🤖</span> AI For Everyone</a>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('lessons')">Lessons</a>
+    <a href="#" onclick="showPage('slideshow')">Slideshow</a>
+    <a href="#" onclick="showPage('activities')">Activities</a>
+    <a href="#" onclick="showPage('quiz')">Quiz</a>
+    <a href="#" onclick="showPage('teachers')">Teachers</a>
+    <a href="https://gemini-theta-gilt.vercel.app" target="_blank" class="nav-cta">LV-Assist ↗</a>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-badge">🎓 Made by a student, for students</div>
+    <h1>Learn <em>Artificial</em><br>Intelligence at School</h1>
+    <p>Lessons, slideshows, activities, and quizzes to help students and teachers understand AI — and use it responsibly.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-primary" onclick="showPage('lessons')">Explore Lessons →</a>
+      <a href="#" class="btn-secondary" onclick="showPage('slideshow')">View Slideshow</a>
+    </div>
+  </div>
+
+  <div class="lv-banner">
+    <div class="lv-card">
+      <div class="lv-card-left">
+        <div class="lv-icon">✨</div>
+        <div class="lv-text">
+          <h3>Try LV-Assist</h3>
+          <p>My AI assistant project — built to help students explore and learn with AI tools.</p>
+        </div>
+      </div>
+      <a href="https://gemini-theta-gilt.vercel.app" target="_blank" class="btn-lv">Open LV-Assist ↗</a>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-label">What's inside</div>
+      <h2>Everything you need to teach AI</h2>
+    </div>
+    <div class="lesson-grid">
+      <div class="lesson-card" onclick="showPage('lessons')">
+        <span class="lesson-emoji">📚</span>
+        <h3>6 Lessons <span class="lesson-arrow">→</span></h3>
+        <p>From "What is AI?" to "How to build AI" — bite-sized reads for every level.</p>
+      </div>
+      <div class="lesson-card" onclick="showPage('slideshow')">
+        <span class="lesson-emoji">🎞</span>
+        <h3>8-Slide Presentation <span class="lesson-arrow">→</span></h3>
+        <p>Ready-to-use classroom slideshow covering the key ideas.</p>
+      </div>
+      <div class="lesson-card" onclick="showPage('activities')">
+        <span class="lesson-emoji">🎮</span>
+        <h3>5 Activities <span class="lesson-arrow">→</span></h3>
+        <p>Hands-on projects including training your own AI and fun online tools.</p>
+      </div>
+      <div class="lesson-card" onclick="showPage('quiz')">
+        <span class="lesson-emoji">🧠</span>
+        <h3>Knowledge Quiz <span class="lesson-arrow">→</span></h3>
+        <p>Test what you've learned with 5 questions and instant feedback.</p>
+      </div>
+      <div class="lesson-card" onclick="showPage('teachers')">
+        <span class="lesson-emoji">👩‍🏫</span>
+        <h3>Teacher Resources <span class="lesson-arrow">→</span></h3>
+        <p>Discussion questions, curriculum links, and tips for using this in class.</p>
+      </div>
+      <div class="lesson-card" onclick="window.open('https://gemini-theta-gilt.vercel.app','_blank')">
+        <span class="lesson-emoji">✨</span>
+        <h3>LV-Assist <span class="lesson-arrow">↗</span></h3>
+        <p>Visit my AI assistant — a real AI project built by a student!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LESSONS -->
+<div id="page-lessons" class="page">
+  <div class="section" style="padding-top:2.5rem">
+    <div class="section-header">
+      <div class="section-label">📚 Lessons</div>
+      <h2>Choose a topic to explore</h2>
+    </div>
+    <div id="lesson-cards" class="lesson-grid">
+      <div class="lesson-card" onclick="openLesson('what')"><span class="lesson-emoji">🤖</span><h3>What is AI? →</h3><p>Learn what artificial intelligence really means in plain language.</p></div>
+      <div class="lesson-card" onclick="openLesson('how')"><span class="lesson-emoji">⚙️</span><h3>How does AI learn? →</h3><p>See how AI gets smarter by studying millions of examples.</p></div>
+      <div class="lesson-card" onclick="openLesson('types')"><span class="lesson-emoji">🌟</span><h3>Types of AI →</h3><p>AI in your phone, games, music apps, and more.</p></div>
+      <div class="lesson-card" onclick="openLesson('safe')"><span class="lesson-emoji">🛡️</span><h3>AI Safety →</h3><p>How to use AI responsibly, honestly, and safely.</p></div>
+      <div class="lesson-card" onclick="openLesson('future')"><span class="lesson-emoji">🚀</span><h3>Future of AI →</h3><p>What jobs and everyday life might look like with AI.</p></div>
+      <div class="lesson-card" onclick="openLesson('build')"><span class="lesson-emoji">🔧</span><h3>Build with AI →</h3><p>How YOU could create AI — starting right now!</p></div>
+    </div>
+
+    <div id="lesson-what" class="lesson-panel">
+      <button class="back-btn" onclick="closeLesson()">← Back to lessons</button>
+      <h2>🤖 What is Artificial Intelligence?</h2>
+      <div class="lesson-body">
+        <p>Artificial Intelligence — or AI — is when computers are programmed to do things that normally need human thinking, like recognizing pictures, understanding what you say, or making decisions.</p>
+        <p>Think of it like teaching a computer to be really good at one specific task. A human brain can do millions of things. AI is usually trained for just one job — but it can do that job millions of times faster than we can!</p>
+        <div class="fun-fact">💡 Fun Fact: The term "Artificial Intelligence" was first used in 1956 — before most of your grandparents were even born!</div>
+        <p>AI is already all around you. When Netflix suggests a show, when your phone unlocks with your face, when a voice assistant answers a question — that's all AI at work.</p>
+        <p>AI is not magic, and it's not a robot brain. It's a set of very clever math and patterns that a computer follows to make smart-seeming decisions.</p>
+      </div>
+    </div>
+    <div id="lesson-how" class="lesson-panel">
+      <button class="back-btn" onclick="closeLesson()">← Back to lessons</button>
+      <h2>⚙️ How Does AI Learn?</h2>
+      <div class="lesson-body">
+        <p>AI learns by looking at enormous amounts of examples. To teach a computer the difference between a cat and a dog, you'd show it thousands of labeled photos until it figures out the pattern all on its own.</p>
+        <p>This is called <strong>machine learning</strong>. The computer finds patterns in data and builds its own rules — without being told what the rules are!</p>
+        <div class="fun-fact">💡 Fun Fact: Large AI models like ChatGPT were trained on more words than you could read in over 1,000 lifetimes!</div>
+        <p>When AI gets an answer wrong, it adjusts its rules a tiny bit. After millions of tries, it becomes very accurate. It's a lot like how you learned to walk — lots of falls before you got it right!</p>
+      </div>
+    </div>
+    <div id="lesson-types" class="lesson-panel">
+      <button class="back-btn" onclick="closeLesson()">← Back to lessons</button>
+      <h2>🌟 Types of AI You Use Every Day</h2>
+      <div class="lesson-body">
+        <p><strong>Voice Assistants</strong> — Siri, Alexa, and Google Assistant use AI to understand speech and respond naturally.</p>
+        <p><strong>Recommendation AI</strong> — YouTube, Netflix, and Spotify watch what you enjoy and predict what you'll want next. That's AI at work!</p>
+        <p><strong>Image Recognition</strong> — When your phone unlocks with your face, AI scans thousands of tiny data points to match you in milliseconds.</p>
+        <div class="fun-fact">💡 Fun Fact: Video game characters that dodge, chase, and react to you are using AI to decide what to do in real time!</div>
+        <p><strong>Chatbots</strong> — AI assistants can have real conversations, write stories, answer questions, and help with homework.</p>
+        <p><strong>Self-driving cars</strong> — Cars use AI cameras and sensors to see the road and make driving decisions dozens of times per second.</p>
+      </div>
+    </div>
+    <div id="lesson-safe" class="lesson-panel">
+      <button class="back-btn" onclick="closeLesson()">← Back to lessons</button>
+      <h2>🛡️ Using AI Safely and Responsibly</h2>
+      <div class="lesson-body">
+        <p>AI is a powerful tool — like a really sharp pair of scissors. Super useful, but you need to know how to handle it!</p>
+        <p><strong>Protect your privacy:</strong> Never tell an AI your real name, home address, school, or passwords. Even friendly-seeming tools store data.</p>
+        <p><strong>Always check AI answers:</strong> AI can be wrong. It can "hallucinate" — make things up and sound very confident doing it. Double-check important facts.</p>
+        <div class="fun-fact">💡 Good rule: "AI is a great first draft, but humans do the final check."</div>
+        <p><strong>AI can be biased:</strong> Since AI learns from human data, it can pick up unfair patterns. We need to design it carefully so it treats everyone equally.</p>
+        <p><strong>Use it honestly:</strong> Using AI to do your homework without learning defeats the purpose. Use it to learn more deeply, not to skip learning.</p>
+      </div>
+    </div>
+    <div id="lesson-future" class="lesson-panel">
+      <button class="back-btn" onclick="closeLesson()">← Back to lessons</button>
+      <h2>🚀 The Future of AI</h2>
+      <div class="lesson-body">
+        <p>AI is growing incredibly fast. Things that seemed impossible 10 years ago — like AI drawing realistic pictures or writing full essays — are now completely normal.</p>
+        <p>In the future, AI will help doctors catch diseases earlier, help scientists tackle climate change, and might even help us explore other planets!</p>
+        <div class="fun-fact">💡 Fun Fact: Many experts believe most jobs of the future don't even exist yet. AI skills will be as essential as reading and math!</div>
+        <p>Some jobs will change or disappear — but many new ones will appear too. People who understand AI will be the ones building the future we all live in.</p>
+        <p>That's exactly why learning about AI in elementary school puts you way ahead of the game. 🎉</p>
+      </div>
+    </div>
+    <div id="lesson-build" class="lesson-panel">
+      <button class="back-btn" onclick="closeLesson()">← Back to lessons</button>
+      <h2>🔧 How Could YOU Build AI?</h2>
+      <div class="lesson-body">
+        <p>You can actually start learning to build AI right now — even in elementary school!</p>
+        <p><strong>Scratch</strong> (scratch.mit.edu) — Build interactive programs and simple AI-like games with drag-and-drop blocks. No experience needed.</p>
+        <p><strong>ML for Kids</strong> (machinelearningforkids.co.uk) — Train your own image and text AI models for free. Seriously fun!</p>
+        <div class="fun-fact">💡 The people who build AI are called Machine Learning Engineers, Data Scientists, and AI Researchers — some of the most exciting jobs in the world right now.</div>
+        <p>The main skills you need: curiosity, problem-solving, math (especially patterns), and coding. You're already building all of these in school. Start by asking "what if?" — that's exactly what AI builders do every single day.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDESHOW -->
+<div id="page-slideshow" class="page">
+  <div class="section" style="padding-top:2.5rem">
+    <div class="section-header">
+      <div class="section-label">🎞 Slideshow</div>
+      <h2>AI 101 — Class Presentation</h2>
+    </div>
+    <div class="slide-wrapper">
+      <div class="slide-stage">
+        <div class="slide active"><div class="slide-emoji">🤖</div><h2>Welcome to AI 101!</h2><p>Artificial Intelligence is all around us. In this slideshow, you'll learn what it is, how it works, and why it matters for YOUR future.</p></div>
+        <div class="slide"><div class="slide-emoji">🧠</div><h2>What is AI?</h2><p>AI stands for Artificial Intelligence. It's when we teach computers to do things that normally need a human brain — like recognizing faces, understanding speech, or making decisions.</p></div>
+        <div class="slide"><div class="slide-emoji">📚</div><h2>AI learns from examples</h2><p>Just like you learn by practicing, AI learns by studying millions of examples. Show it 10,000 cat photos and 10,000 dog photos — and it figures out the difference all by itself!</p></div>
+        <div class="slide"><div class="slide-emoji">📱</div><h2>AI is already in your life</h2><p>Face unlock on your phone. YouTube recommendations. Video game characters. Spell check. Voice assistants. You use AI dozens of times every single day!</p></div>
+        <div class="slide"><div class="slide-emoji">⚠️</div><h2>AI has limits</h2><p>AI can be wrong. It can be biased. It doesn't have feelings or common sense. It only knows what it was trained on — which is exactly why humans need to stay in charge!</p></div>
+        <div class="slide"><div class="slide-emoji">🛡️</div><h2>Using AI safely</h2><p>Never share personal info with AI. Always verify AI answers. Use it as a helper, not a replacement for your own thinking. AI is a tool — YOU are in control.</p></div>
+        <div class="slide"><div class="slide-emoji">🚀</div><h2>Your AI future</h2><p>You will grow up in a world shaped by AI. Learning about it now makes you a creator, not just a user. The future needs people like YOU to build AI responsibly!</p></div>
+        <div class="slide"><div class="slide-emoji">🎉</div><h2>You're already ahead!</h2><p>Most adults never learned about AI in school. By learning now, you have a massive head start. Stay curious, keep asking questions, and go change the world!</p></div>
+      </div>
+      <div class="slide-footer">
+        <div class="slide-dots" id="dots"></div>
+        <span class="slide-count" id="slide-count">1 / 8</span>
+        <div class="slide-controls">
+          <button class="slide-btn" onclick="prevSlide()">← Prev</button>
+          <button class="slide-btn" onclick="nextSlide()">Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVITIES -->
+<div id="page-activities" class="page">
+  <div class="section" style="padding-top:2.5rem">
+    <div class="section-header">
+      <div class="section-label">🎮 Activities</div>
+      <h2>Hands-on ways to explore AI</h2>
+    </div>
+    <div class="activity-list">
+      <div class="activity-card">
+        <div class="activity-icon icon-purple">🎨</div>
+        <div class="activity-body">
+          <h3>Teach an AI to draw</h3>
+          <p>Go to Quick Draw by Google — you draw something and AI tries to guess what it is in real time. Watch it get smarter as you go!</p>
+          <div class="tag-row"><span class="tag tag-purple">⏱ 10 minutes</span><span class="tag tag-teal">All ages</span><span class="tag tag-coral">Super fun!</span></div>
+          <a href="https://quickdraw.withgoogle.com" target="_blank" class="link-btn">Open Quick Draw ↗</a>
+        </div>
+      </div>
+      <div class="activity-card">
+        <div class="activity-icon icon-teal">🤖</div>
+        <div class="activity-body">
+          <h3>Train your own AI model</h3>
+          <p>Machine Learning for Kids lets you train a real AI to recognize images, text, or sounds. No coding needed — great for a classroom project!</p>
+          <div class="tag-row"><span class="tag tag-purple">⏱ 20–30 minutes</span><span class="tag tag-teal">Grades 3–5</span></div>
+          <a href="https://machinelearningforkids.co.uk" target="_blank" class="link-btn">Open ML for Kids ↗</a>
+        </div>
+      </div>
+      <div class="activity-card">
+        <div class="activity-icon icon-amber">✨</div>
+        <div class="activity-body">
+          <h3>Try LV-Assist — a student-built AI</h3>
+          <p>Visit LV-Assist and explore a real AI assistant built by a student! Ask questions and see how it responds.</p>
+          <div class="tag-row"><span class="tag tag-amber">Student project</span><span class="tag tag-teal">All ages</span></div>
+          <a href="https://gemini-theta-gilt.vercel.app" target="_blank" class="link-btn">Open LV-Assist ↗</a>
+        </div>
+      </div>
+      <div class="activity-card">
+        <div class="activity-icon icon-coral">🧩</div>
+        <div class="activity-body">
+          <h3>AI or Human? — classroom game</h3>
+          <p>One person writes a short paragraph. Another uses AI to write one. Read both aloud — can the class tell which is which? Discuss the clues!</p>
+          <div class="tag-row"><span class="tag tag-purple">⏱ 20 minutes</span><span class="tag tag-coral">Group activity</span></div>
+        </div>
+      </div>
+      <div class="activity-card">
+        <div class="activity-icon icon-teal">📝</div>
+        <div class="activity-body">
+          <h3>Design your own AI invention</h3>
+          <p>Draw or write about an AI you'd like to invent. What problem does it solve? How does it learn? Who does it help? Share your idea with the class!</p>
+          <div class="tag-row"><span class="tag tag-teal">⏱ 20 minutes</span><span class="tag tag-purple">Creative</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="page-quiz" class="page">
+  <div class="section" style="padding-top:2.5rem">
+    <div class="section-header">
+      <div class="section-label">🧠 Quiz</div>
+      <h2>Test your AI knowledge!</h2>
+    </div>
+    <div class="quiz-wrap" id="quiz-wrap"></div>
+  </div>
+</div>
+
+<!-- TEACHERS -->
+<div id="page-teachers" class="page">
+  <div class="section" style="padding-top:2.5rem">
+    <div class="section-header">
+      <div class="section-label">👩‍🏫 For Teachers</div>
+      <h2>Resources for educators</h2>
+    </div>
+    <div class="teacher-grid">
+      <div class="teacher-card">
+        <h3>📋 Why teach AI in elementary school?</h3>
+        <p>AI literacy is becoming as important as reading and math. Early exposure demystifies technology, builds critical thinking, and prepares students for a world where AI is everywhere. This site was built by a student who wanted their school to learn!</p>
+      </div>
+      <div class="teacher-card">
+        <h3>📌 How to use this site in class</h3>
+        <p>Use the <strong>Slideshow</strong> as a class presentation — 8 slides covering the key ideas. Assign <strong>Activities</strong> for independent or group work. Use the <strong>Quiz</strong> to assess understanding. Each Lesson card is a 10–15 min read. Works on any device, no login needed.</p>
+      </div>
+      <div class="teacher-card">
+        <h3>🔗 Free curriculum resources</h3>
+        <p>Structured AI lessons for K–8:</p>
+        <p>• <a href="https://ai4k12.org" target="_blank" style="color:var(--purple)">ai4k12.org</a> — National AI education initiative<br>• <a href="https://code.org/ai" target="_blank" style="color:var(--purple)">code.org/ai</a> — Free lessons from Code.org<br>• <a href="https://scratch.mit.edu" target="_blank" style="color:var(--purple)">scratch.mit.edu</a> — MIT's free coding playground</p>
+      </div>
+      <div class="teacher-card">
+        <h3>💬 Discussion questions</h3>
+        <ul class="discussion-list">
+          <li>Where have you seen AI in your life today?</li>
+          <li>What can AI do that surprises you?</li>
+          <li>What can a human do that AI cannot?</li>
+          <li>Should we be excited or worried about AI?</li>
+          <li>If you could build any AI, what would it do?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-logo">🤖 AI For Everyone</span>
+  Made by a student who wants every school to learn about AI.<br>
+  <a href="https://gemini-theta-gilt.vercel.app" target="_blank">Visit LV-Assist ↗</a>
+</footer>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+    if (id === 'quiz') initQuiz();
+  }
+
+  function openLesson(id) {
+    document.getElementById('lesson-cards').style.display = 'none';
+    document.querySelectorAll('.lesson-panel').forEach(p => p.classList.remove('open'));
+    document.getElementById('lesson-' + id).classList.add('open');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function closeLesson() {
+    document.getElementById('lesson-cards').style.display = 'grid';
+    document.querySelectorAll('.lesson-panel').forEach(p => p.classList.remove('open'));
+  }
+
+  // Slideshow
+  let cur = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dotsEl = document.getElementById('dots');
+  slides.forEach((_,i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i===0?' active':'');
+    d.onclick = () => goSlide(i);
+    dotsEl.appendChild(d);
+  });
+  function goSlide(n) {
+    slides[cur].classList.remove('active');
+    document.querySelectorAll('.dot')[cur].classList.remove('active');
+    cur = Math.max(0, Math.min(n, slides.length-1));
+    slides[cur].classList.add('active');
+    document.querySelectorAll('.dot')[cur].classList.add('active');
+    document.getElementById('slide-count').textContent = (cur+1) + ' / ' + slides.length;
+  }
+  function nextSlide() { goSlide(cur+1); }
+  function prevSlide() { goSlide(cur-1); }
+
+  // Quiz
+  const qs = [
+    { q:"What does AI stand for?", opts:["Automatic Internet","Artificial Intelligence","Amazing Invention","Advanced Input"], ans:1, exp:"AI stands for Artificial Intelligence — when computers do things that normally need human thinking!" },
+    { q:"How does AI learn?", opts:["By reading books","By watching TV","By studying lots of examples","By asking humans questions"], ans:2, exp:"AI learns by studying millions of examples and finding patterns in the data." },
+    { q:"Which of these uses AI every day?", opts:["A pencil","A notebook","Netflix recommendations","A backpack"], ans:2, exp:"Netflix uses AI to suggest shows based on what you've watched before!" },
+    { q:"Can AI ever be wrong?", opts:["No, AI is always right","Yes — AI can make mistakes","Only if it's broken","Only with math problems"], ans:1, exp:"Yes! AI can be wrong — it can even make things up. Always double-check!" },
+    { q:"What should you NEVER share with AI?", opts:["Your favorite color","Your home address","Your favorite movie","Your opinion"], ans:1, exp:"Never share personal info like your address, school, or passwords with AI tools!" },
+  ];
+  let qi=0, score=0, answered=false;
+  function initQuiz() { qi=0; score=0; renderQ(); }
+  function renderQ() {
+    const w = document.getElementById('quiz-wrap');
+    if (qi >= qs.length) {
+      w.innerHTML = '<div class="quiz-score"><div class="score-num">' + score + '/' + qs.length + '</div><p>' + (score===qs.length?'Perfect score! You\'re an AI expert! 🏆':score>=3?'Great job! Keep exploring! 🌟':'Good try! Review the lessons and try again! 💪') + '</p><button class="quiz-retry" onclick="initQuiz()">Try Again</button></div>';
+      return;
+    }
+    const q = qs[qi];
+    const pct = Math.round((qi/qs.length)*100);
+    w.innerHTML = '<div class="quiz-progress-bar"><div class="quiz-fill" style="width:'+pct+'%"></div></div>' +
+      '<div class="quiz-label">Question ' + (qi+1) + ' of ' + qs.length + '</div>' +
+      '<div class="quiz-q">' + q.q + '</div>' +
+      '<div class="quiz-opts">' + q.opts.map((o,i) => '<button class="quiz-opt" id="qo'+i+'" onclick="ansQ('+i+')">' + o + '</button>').join('') + '</div>' +
+      '<div class="quiz-feedback" id="qf"></div>' +
+      '<button class="quiz-next" id="qn" onclick="nextQ()">Next question →</button>';
+    answered = false;
+  }
+  function ansQ(i) {
+    if (answered) return; answered = true;
+    const q = qs[qi];
+    const fb = document.getElementById('qf');
+    document.querySelectorAll('.quiz-opt').forEach((el,idx) => {
+      el.style.pointerEvents='none';
+      if (idx===q.ans) el.classList.add('correct');
+      else if (idx===i) el.classList.add('wrong');
+    });
+    if (i===q.ans) { score++; fb.className='quiz-feedback show correct'; fb.textContent='✅ Correct! ' + q.exp; }
+    else { fb.className='quiz-feedback show wrong'; fb.textContent='❌ Not quite. ' + q.exp; }
+    document.getElementById('qn').classList.add('show');
+  }
+  function nextQ() { qi++; renderQ(); }
+</script>
+</body>
+</html>
